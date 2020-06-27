@@ -21,6 +21,13 @@ class Loss : Fragment() {
             binding.button.setOnClickListener {
                 it.findNavController().navigate(R.id.action_loss_to_secondFragmnet)
             }
+
+
+
+
+        var args = LossArgs.fromBundle(requireArguments())
+
+        binding.message.text = "You can do better next time,You scored ${args.numOfQues} / 10"
         return  binding.root
     }
 

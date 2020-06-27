@@ -23,6 +23,12 @@ class Third : Fragment() {
             it.findNavController().navigate(R.id.action_third_to_secondFragmnet)
 
         }
+        
+        var args = ThirdArgs.fromBundle(requireArguments())
+
+            binding.textView2.text = "You are a Champion,You scored ${args.numCorrect} / 10"
+
+
         return  binding.root
 
 

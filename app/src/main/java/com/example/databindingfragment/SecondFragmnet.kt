@@ -132,9 +132,9 @@ set()
 
         }else {
             if (numberOfCorrectans > 5) {
-                it.findNavController().navigate(R.id.action_secondFragmnet_to_third)
+                it.findNavController().navigate(SecondFragmnetDirections.actionSecondFragmnetToThird(numberOfCorrectans))
             } else {
-                it.findNavController().navigate(R.id.action_secondFragmnet_to_loss)
+                it.findNavController().navigate(SecondFragmnetDirections.actionSecondFragmnetToLoss(numberOfCorrectans))
             }
         }
     }
