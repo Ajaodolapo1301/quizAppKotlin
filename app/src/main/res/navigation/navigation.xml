@@ -46,7 +46,7 @@
             app:destination="@id/secondFragmnet" />
     </fragment>
     <fragment
-        android:id="@+id/about2"
+        android:id="@+id/about_fragment"
         android:name="com.example.databindingfragment.About"
         android:label="fragment_about"
         tools:layout="@layout/fragment_about" />

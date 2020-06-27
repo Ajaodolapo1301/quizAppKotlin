@@ -36,13 +36,13 @@ class FirstFragment : Fragment() {
 
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        super.onCreateOptionsMenu(menu, inflater)
-//        inflater?.inflate(R.menu.menu, menu)
-//    }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.over_flow_menu, menu)
+    }
 //
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return NavigationUI.onNavDestinationSelected(item!!, view!!.findNavController()) ||
-//         super.onOptionsItemSelected(item)
-//    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(item!!, requireView()!!.findNavController()) ||
+         super.onOptionsItemSelected(item)
+    }
 }
