@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">dataBindingFragment</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="play">Play</string>
+    <string name="muslim_quiz_app">Muslim Quiz App</string>
+</resources>

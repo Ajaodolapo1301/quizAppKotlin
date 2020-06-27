@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    tools:context=".SecondFragmnet">
+
+
+
+            <LinearLayout
+
+                android:layout_margin="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/questionNum"
+                        android:layout_width="356dp"
+                        android:layout_height="33dp"
+                        android:layout_margin="16dp"
+                        android:layout_marginTop="468dp"
+                        android:text="Question 1 / 10"
+                        android:textAlignment="viewStart"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/questionCard"
+
+                        android:layout_width="347dp"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="32dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/questionNum">
+
+                        <TextView
+                            android:id="@+id/questionText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:text="what is the name of the president of Nigeria?"
+                            android:textSize="20sp" />
+                    </androidx.cardview.widget.CardView>
+
+                    <Button
+                        android:id="@+id/trueButton"
+                        android:layout_width="294dp"
+                        android:layout_height="61dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="True"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/questionCard" />
+
+                    <Button
+                        android:id="@+id/falseButton"
+                        android:layout_width="294dp"
+                        android:layout_height="61dp"
+                        android:layout_marginTop="32dp"
+                        android:text="False"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@+id/trueButton"
+                        app:layout_constraintStart_toStartOf="@+id/trueButton"
+                        app:layout_constraintTop_toBottomOf="@+id/trueButton" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+
+
+
+</layout>
