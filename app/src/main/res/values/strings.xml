@@ -5,4 +5,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="play">Play</string>
     <string name="muslim_quiz_app">Muslim Quiz App</string>
+    <string name="share">Share</string>
+    <string name="share_success_text">I mastered #UdacityAndroidTrivia with %1$d/10 correct questions!</string>
 </resources>
