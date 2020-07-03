@@ -8,12 +8,14 @@ import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.example.databindingfragment.databinding.FragmentThirdBinding
 
 
 class Third : Fragment() {
-
+    private lateinit var viewModel: ThirdViewModel
+    private lateinit var viewModelFactory: ThirdViewModelFactory
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,15 +33,13 @@ class Third : Fragment() {
         }
 
 
+        viewModelFactory = ThirdViewModelFactory(ThirdArgs.fromBundle(requireArguments()).numCorrect)
 
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ThirdViewModel::class.java)
 
-
-
-
-        
-        var args = ThirdArgs.fromBundle(requireArguments())
-
-            binding.textView2.text = "You are a Champion,You scored ${args.numCorrect} / 10"
+//        var args = ThirdArgs.fromBundle(requireArguments())
+//
+            binding.textView2.text = "You are a Champion,You scored ${ThirdArgs.fromBundle(requireArguments()).numCorrect.toString()} / 10"
 
 
         return  binding.root

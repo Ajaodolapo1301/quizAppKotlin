@@ -2,70 +2,34 @@ package com.example.databindingfragment
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import com.example.databindingfragment.databinding.FragmentSecondFragmnetBinding
-import kotlinx.android.synthetic.main.fragment_second_fragmnet.view.*
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 
-/**
- * A simple [Fragment] subclass.
- */
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import com.example.databindingfragment.databinding.FragmentSecondFragmnetBinding
+
+
+
 class SecondFragmnet : Fragment() {
     private  lateinit var  binding:FragmentSecondFragmnetBinding
 
-
-    val questions: MutableList<Question> = mutableListOf(
-        Question(text = "What is  Jetpack?",
-            ans =  true
-        ),
-
-        Question(text = "Base class for Layout?",
-            ans = false
-        ),
-
-        Question(text = "Layout for complex Screens?",
-            ans = true
-        ),
-
-        Question(text = "Pushing structured data into a Layout?",
-            ans = false
-
-        ),
-
-        Question(text = "Inflate layout in fragments?",
-            ans = true
-        ),
-
-        Question(text = "Build system for Android?",
-            ans = false),
-
-        Question(text = "Android vector format?",
-
-            ans = true),
-
-        Question(text = "Android Navigation Component?",
-            ans = false
-        ),
-
-        Question(text = "Registers app with launcher?",
-            ans = true),
-
-        Question(text = "Mark a layout for Data Binding?",
-            ans = false)
-
-    )
+    private lateinit var viewModel: SecondFragmentViewModel
 
 
-    var questionNumber = 0
 
-    lateinit var current: Question
-    var numberOfCorrectans = 0
-    var numofWrongAns = 0
+
+
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -73,71 +37,87 @@ class SecondFragmnet : Fragment() {
     ): View? {
 
          binding = DataBindingUtil.inflate<FragmentSecondFragmnetBinding>(inflater, R.layout.fragment_second_fragmnet, container, false)
-set()
+
+
+
+        viewModel = ViewModelProviders.of(this).get(SecondFragmentViewModel::class.java)
+
+
+        viewModel.questions.observe(viewLifecycleOwner, Observer { newQues->
+    binding.questionNum.text = "Question ${viewModel.questionNumber + 1} / 10"
+            binding.questionText.text = newQues.toString()
+        })
+
+
+
+        viewModel.eventGame.observe(viewLifecycleOwner, Observer {hasfinished->
+            if (hasfinished){
+                println(hasfinished)
+                gameFinished()
+//                viewModel.gameTrulyFinished()
+            }
+
+
+
+        })
+
+
 
 
 
 //        TRUE BUTTON
         binding.trueButton.setOnClickListener {
-
-            var correctAns =  questions[questionNumber].ans
-        outcome(it, correctAns, true)
+            viewModel.nextWord()
+      viewModel.outcome( true)
 
         }
 
 
         //FALSE BUTTON
         binding.falseButton.setOnClickListener {
-
-            var correctAns =  questions[questionNumber].ans
-
-                outcome(it, correctAns, false)
+                viewModel.nextWord()
+            viewModel.outcome( false)
         }
+
+
+
+
+
+
+
+
+
 
 
 
 
         return binding.root
     }
-//
 
 
 
 
-//    METHODS
-        fun set(){
+    private fun updateWordText() {
 
-    binding.questionText.text = questions[questionNumber].text
-    binding.questionNum.text = "Question ${ questionNumber+1 } / 10"
-
-        }
+        binding.questionText.text = viewModel.questions.value
+    }
 
 
-    fun outcome(it:View, correctAns:Boolean, inputput:Boolean){
 
-        if (questionNumber   < questions.count() - 1 ){
-            questionNumber++
-            set()
-            if (correctAns == inputput){
 
-                numberOfCorrectans++
+    private fun gameFinished() {
+        if (viewModel.numberOfCorrectans.value!! >  5) {
+       var action =   SecondFragmnetDirections.actionSecondFragmnetToThird(viewModel.numberOfCorrectans.value ?: 0)
 
-                println("right$numberOfCorrectans")
+            NavHostFragment.findNavController(this).navigate(action)
 
-            }else{
-                numofWrongAns++
+        } else {
+          val action=  SecondFragmnetDirections.actionSecondFragmnetToLoss(viewModel.numberOfCorrectans.value ?: 0)
 
-                println(numofWrongAns)
-            }
-
-        }else {
-            if (numberOfCorrectans > 5) {
-                it.findNavController().navigate(SecondFragmnetDirections.actionSecondFragmnetToThird(numberOfCorrectans))
-            } else {
-                it.findNavController().navigate(SecondFragmnetDirections.actionSecondFragmnetToLoss(numberOfCorrectans))
-            }
+            NavHostFragment.findNavController(this).navigate(action)
         }
     }
+
 
 
 }

@@ -6,55 +6,56 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.databindingfragment.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
-
+        private  lateinit var drawerLayout: DrawerLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_main)
 
         var binding  = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-
+                drawerLayout =  binding.drawerLayout
 
 
 //        DISPLAYING BACK BUTTON
 
         val navController = this.findNavController(R.id.myNavHostFrag)
-        NavigationUI.setupActionBarWithNavController(this, navController)
+
+//        HOOKING UP THE HAMBURGER
+        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
+
+//        SETTING UP DRAWER
+
+        NavigationUI.setupWithNavController(binding.navView, navController)
+
+
+
+
+        navController.addOnDestinationChangedListener { nc, destination, arguments ->
+            if (destination.id == nc.graph.startDestination) {
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            } else {
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            }
+
+
+        }
+
 //
     }
     //        DISPLAYING BACK BUTTON AND GETTING IT TO WORK
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.myNavHostFrag)
 
-        return navController.navigateUp()
+        return  NavigationUI.navigateUp(navController, drawerLayout)
     }
 
 
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//
-//        var menuInflater = menuInflater
-//
-//
-//        menuInflater.inflate(R.menu.menu, menu)
-//
-//        return super.onCreateOptionsMenu(menu)
-//    }
-//
-//
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//
-//        if (item?.itemId == R.id.menu){
-//            var intent = Intent(applicationContext, Main2Activity::class.java)
-//            startActivity(intent)
-//        }
-//        return super.onOptionsItemSelected(item)
-//    }
 
 
 }

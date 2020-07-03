@@ -49,7 +49,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:padding="10dp"
-                            android:text="what is the name of the president of Nigeria?"
+                            android:text=" "
                             android:textSize="20sp" />
                     </androidx.cardview.widget.CardView>
 
